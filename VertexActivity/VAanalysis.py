@@ -68,6 +68,7 @@ def main():
     track=0
     q=[]
     print "----------------------------"
+    CounterTest = 0
     for entry in sfgTree:
         c=[]
         VertexDepositT=np.zeros([5])
@@ -82,16 +83,26 @@ def main():
         print i, count
         trueTree.GetEntry(i)
         vertex.GetEntry(i)
+        
+        #WARNING
+        CounterTest += 1
+        if(CounterTest>=5600): break
+    
+    
+    
         if i==int(count):
             print "analyzed",count,"events"
             break
         if entry.NAlgoResults==0: continue
+        if vertex.NVtx==0: 
+            print "no vertex"
+            continue
         vt_x=vertex.Vertices[0].Position[0]
         vt_y=vertex.Vertices[0].Position[1]
         vt_z=vertex.Vertices[0].Position[2]
         
         print "vertex module: global coord vertex position ",entry.EventID, vertex.NVtx, vt_x, vt_y, vt_z
-        print "vertex module: in sfgd framework, vertex position is =",int((vt_x+985.92)/10.27),int((vt_y+287.56-46)/10.27),int((vt_z+2888.78)/10.27)
+        print "vertex module: in sfgd framework, vertex position is =",int((vt_x+985.92-5.135)/10.27),int((vt_y+287.56-5.135)/10.27-4.6),int((vt_z+2888.78-5.135)/10.27)
         VertexPos[0]=int((vt_x+985.92-5.135)/10.27)
         VertexPos[1]=int((vt_y+287.56-5.135)/10.27 - 4.6)
         VertexPos[2]=int((vt_z+2888.78-5.135)/10.27)
@@ -133,7 +144,12 @@ def main():
                 VertexPosNew[1]=vt_reco[2]
                 VertexPosNew[2]=vt_reco[3]
                 VertexPosNew[3]=vt_reco[0]
-                
+        
+        #print "vertex kurwa"
+        #for h in entry.Vertices:
+        #print "debug"
+        #kurde=vertex.Vertices[0].Position[0]
+        #print kurde
         #print "NEW vertex position X Y Z depo", VertexPosNew[0], " ", VertexPosNew[1]," ", VertexPosNew[2], " ", VertexPosNew[3]
         
         for traj in trueTree.Trajectories:
