@@ -4,3 +4,4 @@
 training sample of N=10^6 points, which are distributed approximately uniformly on the
 available feature space.</br>
 **kNN.ipynb** - Just kNN implementation. </br>
+**Normalization_Standarization.ipynb** - Add feature scaling (standardization and normalization) for your k-NN implementation.  </br>
