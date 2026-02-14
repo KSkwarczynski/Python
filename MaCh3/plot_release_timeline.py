@@ -18,6 +18,7 @@ from datetime import datetime
 # 🔧 Fill this table as needed (unknown dates can simply be omitted)
 # ----------------------------------------------------------------------
 data = [
+    #("v0.0.0","10-06-2022"),
     ("v1.0.0","09-04-2024"),
     ("v1.1.0","03-09-2024"),
     ("v1.1.1","09-09-2024"),
