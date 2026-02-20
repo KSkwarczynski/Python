@@ -8,7 +8,15 @@ Usage:
 
 import re
 from collections import Counter
-import matplotlib.pyplot as plt
+import subprocess
+import sys
+
+# Attempt to import matplotlib, install if not found
+try:
+    import matplotlib.pyplot as plt
+except ImportError:
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "matplotlib"])
+    import matplotlib.pyplot as plt
 
 # ----------------------------------------------------------------------
 # Paste / maintain the thesis list here (one entry per line)
@@ -76,9 +84,9 @@ plt.grid(True, axis="y", linestyle="--", alpha=0.4)
 
 plt.tight_layout()
 
-# Instead of plt.show(), save to PDF
-plt.savefig("mach3_theses_per_year.pdf")
-print("Plot saved as mach3_theses_per_year.pdf")
+# Save to PNG
+plt.savefig("mach3_theses_per_year.png", dpi=200, bbox_inches='tight')
+print("Plot saved as mach3_theses_per_year.png")
 
 # ----------------------------------------------------------------------
 # Also print a table (useful for sanity checks / papers)
