@@ -14,6 +14,7 @@ import matplotlib.pyplot as plt
 # Paste / maintain the thesis list here (one entry per line)
 # ----------------------------------------------------------------------
 data = """
+Mo Jia, Upgrading the Joint Neutrino Oscillation Analysis of T2K and Super-Kamiokande Experiments via Surfing in a High-dimensional Detector Uncertainty Space, (2025)
 Michael Reh, Analysis of Detector Systematic Uncertainties Using Atmospheric Neutrinos in a Novel Markov Chain Monte Carlo Framework for T2K Data Runs 1-11, (2025)
 Liban Warsame, First Bayesian neutrino oscillation analysis of DUNE, (2025)
 Tailin Zhu, Measurement of neutrino oscillation parameters at T2K using new neutral current pion samples and probing future sensitivities with Hyper-Kamiokande, (2025)
