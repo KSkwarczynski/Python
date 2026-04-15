@@ -10,6 +10,15 @@ Patch release  : X.Y.Z (Z>0)
 Output:
     mach3_release_timeline.png
 """
+import sys
+import subprocess
+
+try:
+    import matplotlib.pyplot as plt
+except ModuleNotFoundError:
+    print("matplotlib not found. Installing...")
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "matplotlib"])
+    import matplotlib.pyplot as plt
 
 import matplotlib.pyplot as plt
 from datetime import datetime
@@ -60,6 +69,7 @@ data = [
     ("v2.4.0","04-02-2026"),
     ("v2.4.1","13-02-2026"),
     ("v2.4.2","19-03-2026"),
+    ("v2.5.0","13-04-2026"),
 ]
 
 # ----------------------------------------------------------------------
