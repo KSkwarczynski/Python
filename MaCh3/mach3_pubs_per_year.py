@@ -18,6 +18,8 @@ except ImportError:
     subprocess.check_call([sys.executable, "-m", "pip", "install", "matplotlib"])
     import matplotlib.pyplot as plt
 
+from matplotlib.ticker import MaxNLocator
+
 # ----------------------------------------------------------------------
 # Paste / maintain the publication list here
 # ----------------------------------------------------------------------
@@ -63,6 +65,11 @@ plt.ylabel("Number of Publications")
 
 plt.xticks(all_years, rotation=45)
 plt.ylim(bottom=0)
+
+# Force integer y-axis ticks (fixes 0.5 issue)
+ax = plt.gca()
+ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+
 plt.grid(True, axis="y", linestyle="--", alpha=0.4)
 
 plt.tight_layout()
