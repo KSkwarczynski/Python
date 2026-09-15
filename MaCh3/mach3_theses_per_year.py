@@ -35,6 +35,7 @@ Ewan Miller, Constraining the Flux and Cross Section Uncertainties for the T2K E
 Thomas Holvey, New measurements of neutrino oscillation parameters and development of novel interaction uncertainties at current and future long-baseline experiments, (2024)
 Yashwanth S Prabhu, Expanded νe CC1π+ sample selection and improved systematic treatments for neutrino oscillation parameter determination with T2K data, (2024)
 Alex Carter, Constraining systematic uncertainties using T2K Near Detector with X and Y FGD2 scintillator layers information in Markov chain Monte Carlo framework, (2024)
+Dan Martin, Neutrino oscillation analysis using T2K data with additional single ring NCπ⁰ samples (2024)
 Junjie Jiang, First Bayesian Results of a Joint Neutrino Oscillation Analysis between T2K Beam Neutrinos and Super-Kamiokande Atmospheric Neutrinos, (2024)
 Nauman Akhlaq, Developing the T2K Neutrino Oscillation Analysis by Using Pion Samples at the Near Detector, (2023)
 Evan Arthur Gerald Goodman, Combining T2K With Other Experiments to Better Constrain Oscillation Parameters, (2023)
