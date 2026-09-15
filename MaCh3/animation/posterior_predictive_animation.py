@@ -690,7 +690,7 @@ def main():
     )
 
     ax_target.set_title(
-        "Target Distribution ($\\delta_{CP}$)",
+        "Posterior Distribution from a Chain ($\\delta_{CP}$)",
         fontsize=13,
         fontweight="bold",
         color=TEXT,
@@ -799,14 +799,14 @@ def main():
     )
 
     ax_reweighted.set_xlabel(
-        r"$e_{\rm REC}$ [GeV]",
+        r"$E_{\nu}^{\rm rec}$ [GeV]",
         fontsize=14,
         color=TEXT,
         labelpad=8
     )
 
     ax_reweighted.set_ylabel(
-        "events",
+        "Events",
         fontsize=12.5,
         color=TEXT,
         labelpad=10
@@ -884,7 +884,7 @@ def main():
     )
 
     ax_predictive.set_title(
-        "Posterior Predictive Toy MC",
+        "Posterior Predictive Distribution",
         fontsize=13,
         fontweight="bold",
         color=TEXT,
@@ -892,14 +892,14 @@ def main():
     )
 
     ax_predictive.set_xlabel(
-        r"$e_{\rm REC}$ [GeV]",
+        r"$E_{\nu}^{\rm rec}$ [GeV]",
         fontsize=14,
         color=TEXT,
         labelpad=10
     )
 
     ax_predictive.set_ylabel(
-        "toy MC bin content",
+        "Events",
         fontsize=12.5,
         color=TEXT,
         labelpad=10
@@ -962,7 +962,7 @@ def main():
     )
 
     # ============================================================
-    # RED POSTERIOR-PREDICTIVE MEAN
+    # RED POSTERIOR-PREDICTIVE MEAN — EXPLICITLY MARKED
     # ============================================================
 
     predictive_mean_line, = ax_predictive.plot(
@@ -973,7 +973,19 @@ def main():
         color=MACH3_RED,
         lw=2.8,
         zorder=10,
-        drawstyle="steps-mid"
+        drawstyle="steps-mid",
+        label="Posterior predictive mean"
+    )
+
+    # Explicitly mark the red curve so it is clear that it is
+    # the mean event prediction across the accumulated toys.
+    predictive_mean_label = ax_predictive.legend(
+        loc="upper right",
+        frameon=True,
+        facecolor=WHITE,
+        edgecolor=GRID,
+        fontsize=10,
+        handlelength=2.2
     )
 
     # ============================================================
@@ -988,7 +1000,7 @@ def main():
     )
 
     colorbar.set_label(
-        "toy MC occupancy",
+        "",
         color=TEXT,
         fontsize=10.5
     )
@@ -1167,7 +1179,7 @@ def main():
         # ========================================================
         # Posterior-predictive mean
         #
-        # Mean predicted event count in each eREC bin.
+        # Mean predicted event count in each E_nu^rec bin.
         # ========================================================
 
         if accumulated_toys > 0:
