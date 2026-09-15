@@ -14,13 +14,66 @@ import sys
 # Attempt to import matplotlib, install if not found
 try:
     import matplotlib.pyplot as plt
+    import matplotlib as mpl
+    from matplotlib.ticker import MaxNLocator
 except ImportError:
     subprocess.check_call([sys.executable, "-m", "pip", "install", "matplotlib"])
     import matplotlib.pyplot as plt
+    import matplotlib as mpl
+    from matplotlib.ticker import MaxNLocator
+
+
+# ----------------------------------------------------------------------
+# MaCh3-inspired style
+# Keep this identical to the publication plot for consistency
+# ----------------------------------------------------------------------
+
+MACH3_BLUE = "#428BC5"       # Main MaCh3 blue
+MACH3_NAVY = "#002B45"       # Dark navy
+
+mpl.rcParams.update({
+    # Typography
+    "font.family": "serif",
+    "font.serif": [
+        "DejaVu Serif",
+        "Times New Roman",
+        "Times",
+    ],
+
+    # General text
+    "text.color": MACH3_NAVY,
+    "axes.labelcolor": MACH3_NAVY,
+    "axes.titlecolor": MACH3_NAVY,
+
+    # Axes
+    "axes.edgecolor": MACH3_NAVY,
+    "axes.linewidth": 1.2,
+
+    # Ticks
+    "xtick.color": MACH3_NAVY,
+    "ytick.color": MACH3_NAVY,
+
+    # Grid
+    "grid.color": MACH3_NAVY,
+    "grid.alpha": 0.18,
+
+    # Figure
+    "figure.facecolor": "white",
+    "axes.facecolor": "white",
+
+    # Font sizes
+    "axes.titlesize": 17,
+    "axes.titleweight": "bold",
+    "axes.labelsize": 13,
+    "xtick.labelsize": 10,
+    "ytick.labelsize": 11,
+})
+
 
 # ----------------------------------------------------------------------
 # Paste / maintain the thesis list here (one entry per line)
 # ----------------------------------------------------------------------
+
 data = """
 Naseem Khan, Prototyping of and sensitivity studies for a gaseous argon near detector for the deep underground neutrino experiment, (2026)
 Marcelo Ismerio Moreira Leite de Oliveira, Atmospheric Neutrino Analyses in the Deep Underground Neutrino Experiment, (2025)
@@ -57,9 +110,11 @@ Richard Calland, A 3 flavour joint near and far detector neutrino oscillation an
 Casey Bojechko, Simultaneous Analysis of Near and Far Detector Samples of the T2K Experiment to Measure Muon Neutrino Disappearance, (2013)
 """
 
+
 # ----------------------------------------------------------------------
 # Extract years
 # ----------------------------------------------------------------------
+
 years = re.findall(r"\((\d{4})\)", data)
 years = list(map(int, years))
 
@@ -69,32 +124,102 @@ counts = Counter(years)
 # Build continuous year range
 min_year = min(counts)
 max_year = max(counts)
+
 all_years = list(range(min_year, max_year + 1))
 values = [counts.get(y, 0) for y in all_years]
+
 
 # ----------------------------------------------------------------------
 # Plot
 # ----------------------------------------------------------------------
-plt.figure(figsize=(8, 4.5))
-plt.plot(all_years, values, marker="o")
 
-plt.title("Number of PhD Theses Using MaCh3 per Year")
-plt.xlabel("Year")
-plt.ylabel("Number of Theses")
+fig, ax = plt.subplots(figsize=(9, 5))
 
-plt.xticks(all_years, rotation=45)
-plt.ylim(bottom=0)
-plt.grid(True, axis="y", linestyle="--", alpha=0.4)
+# Main MaCh3-style curve
+ax.plot(
+    all_years,
+    values,
+    color=MACH3_BLUE,
+    linewidth=3.0,
+    marker="o",
+    markersize=7,
+    markerfacecolor="white",
+    markeredgecolor=MACH3_BLUE,
+    markeredgewidth=2.0,
+    zorder=3,
+)
+
+# Add value labels above non-zero points
+for year, value in zip(all_years, values):
+    if value > 0:
+        ax.annotate(
+            str(value),
+            (year, value),
+            xytext=(0, 9),
+            textcoords="offset points",
+            ha="center",
+            va="bottom",
+            fontsize=10,
+            fontweight="bold",
+            color=MACH3_NAVY,
+        )
+
+# Title and labels
+ax.set_title(
+    "Number of PhD Theses Using MaCh3 per Year",
+    pad=15,
+    fontweight="bold",
+)
+
+ax.set_xlabel("Year", labelpad=8)
+ax.set_ylabel("Number of Theses", labelpad=8)
+
+# X-axis
+ax.set_xticks(all_years)
+ax.tick_params(axis="x", rotation=45)
+
+# Y-axis
+ax.set_ylim(bottom=0)
+ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+
+# Subtle horizontal grid
+ax.grid(
+    True,
+    axis="y",
+    linestyle="--",
+    linewidth=0.8,
+    alpha=0.18,
+)
+
+# Remove top and right spines
+ax.spines["top"].set_visible(False)
+ax.spines["right"].set_visible(False)
+
+# Keep left and bottom spines subtle
+ax.spines["left"].set_linewidth(1.2)
+ax.spines["bottom"].set_linewidth(1.2)
 
 plt.tight_layout()
 
-# Save to PNG
-plt.savefig("mach3_theses_per_year.png", dpi=200, bbox_inches='tight')
-print("Plot saved as mach3_theses_per_year.png")
 
 # ----------------------------------------------------------------------
-# Also print a table (useful for sanity checks / papers)
+# Save to PNG
 # ----------------------------------------------------------------------
+
+plt.savefig(
+    "mach3_theses_per_year.png",
+    dpi=300,
+    bbox_inches="tight",
+    facecolor="white",
+)
+
+print("Plot saved as mach3_theses_per_year.png")
+
+
+# ----------------------------------------------------------------------
+# Print table
+# ----------------------------------------------------------------------
+
 print("\nTheses per year:")
 for y in all_years:
-    print(f"{y}: {counts.get(y,0)}")
+    print(f"{y}: {counts.get(y, 0)}")
