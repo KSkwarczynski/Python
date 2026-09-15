@@ -24,6 +24,9 @@ from matplotlib.ticker import MaxNLocator
 # Paste / maintain the publication list here
 # ----------------------------------------------------------------------
 data = """
+
+The DUNE Collaboration. A Bayesian approach to the long-baseline neutrino oscillation sensitivity of DUNE. *arXiv:2608.04059* (2026).
+The T2K Collaboration. Constraining Neutrino Interaction Uncertainties for Neutrino Oscillation Measurements at the T2K Experiment. arXiv:2606.14015 (2026)
 The T2K Collaboration. Results from the T2K Experiment on Neutrino Mixing Including a New Far Detector μ-like Sample. Phys. Rev. Lett., 135(26), 261801 (2025).
 The T2K Collaboration. Testing T2K’s Bayesian constraints with priors in alternate parameterisations. Eur. Phys. J. C, 85(12), 1414 (2025).
 The T2K and NOvA Collaborations. Joint neutrino oscillation analysis from the T2K and NOvA experiments. Nature 646, 818-824 (2025).
