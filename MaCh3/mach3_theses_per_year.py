@@ -22,6 +22,8 @@ except ImportError:
 # Paste / maintain the thesis list here (one entry per line)
 # ----------------------------------------------------------------------
 data = """
+Naseem Khan, Prototyping of and sensitivity studies for a gaseous argon near detector for the deep underground neutrino experiment, (2026)
+Marcelo Ismerio Moreira Leite de Oliveira, Atmospheric Neutrino Analyses in the Deep Underground Neutrino Experiment, (2025)
 Mo Jia, Upgrading the Joint Neutrino Oscillation Analysis of T2K and Super-Kamiokande Experiments via Surfing in a High-dimensional Detector Uncertainty Space, (2025)
 Michael Reh, Analysis of Detector Systematic Uncertainties Using Atmospheric Neutrinos in a Novel Markov Chain Monte Carlo Framework for T2K Data Runs 1-11, (2025)
 Liban Warsame, First Bayesian neutrino oscillation analysis of DUNE, (2025)
