@@ -131,6 +131,7 @@ data = [
     ("v2.6.0", "13-07-2026"),
     ("v2.6.1", "12-08-2026"),
     ("v2.7.0", "14-09-2026"),
+    ("v2.7.1", "21-09-2026"),
 ]
 
 
@@ -321,7 +322,5 @@ plt.savefig(
     bbox_inches="tight",
     facecolor="white",
 )
-
-plt.show()
 
 print("Saved → mach3_release_timeline.png")
