@@ -7,6 +7,7 @@ from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import Circle
+from matplotlib import patheffects
 
 
 # ---------------------------------------------------------------------------
@@ -16,15 +17,14 @@ from matplotlib.patches import Circle
 #   nu_mu  = orange
 #   nu_tau = yellow
 # ---------------------------------------------------------------------------
-BG = "#F8F8F5"
+
 NAVY = "#00324A"        # MCMC trajectories
-BLUE = "#438BC8"        # retained for source/glow styling
-RED = "#A5111C"         # nu_e
+MACH3_BLUE = "#438BC8"   # MaCh3 logo text
+RED = "#A5111C"          # nu_e
 ORANGE = "#D35400"      # nu_mu: darker burnt orange, as in the logo
 YELLOW = "#FFB400"      # nu_tau: bright yellow, clearly separated from nu_mu
-GLOW = "#DDECF7"
 WHITE = "#FFFFFF"
-
+BG = WHITE
 
 # ---------------------------------------------------------------------------
 # Reproducible MCMC-style cloud
@@ -75,6 +75,43 @@ def draw_mcmc_cloud(ax, *, rng: np.random.Generator, center=(0.145, 0.505),
             color=NAVY, lw=lw, alpha=alpha,
             solid_capstyle="round", zorder=2
         )
+
+
+# ---------------------------------------------------------------------------
+# MaCh3 logo text
+# ---------------------------------------------------------------------------
+def draw_mach3_logo(
+    ax,
+    *,
+    center=(0.127, 0.50),
+    fontsize=40,
+    color=MACH3_BLUE,
+    font_family="DejaVu Serif",
+    white_stroke_pt=2.05,
+) -> None:
+    """Draw MaCh3 text with the reference's blue-fill / white-outline look."""
+    cx, cy = center
+
+    ax.text(
+        cx,
+        cy,
+        "MaCh3",
+        fontsize=fontsize,
+        fontweight="bold",
+        color=color,
+        family=font_family,
+        ha="center",
+        va="center",
+        zorder=9,
+        clip_on=False,
+        path_effects=[
+            patheffects.withStroke(
+                linewidth=white_stroke_pt,
+                foreground=WHITE,
+            )
+        ],
+    )
+
 
 
 # ---------------------------------------------------------------------------
@@ -145,7 +182,8 @@ def draw_neutrino_oscillations(ax, *, source_x: float, source_y: float,
 # ---------------------------------------------------------------------------
 def make_banner(width_px: int = 1800, height_px: int = 520,
                 seed: int = 17,
-                output: str = "mach3_banner.png") -> Path:
+                output: str = "mach3_banner.png",
+                show_mach3: bool = True) -> Path:
     dpi = 180
     fig = plt.figure(
         figsize=(width_px / dpi, height_px / dpi),
@@ -165,42 +203,21 @@ def make_banner(width_px: int = 1800, height_px: int = 520,
         ax,
         rng=rng,
         center=cloud_center,
-        width=0.20,
-        height=0.66,
-        n=100,
+        width=0.12,
+        height=0.60,
+        n=80,
     )
 
-    # Neutrino now starts at the centre of the MCMC cloud.
+    # Optional MaCh3 logo lettering directly over the cloud.
+    if show_mach3:
+        draw_mach3_logo(
+            ax,
+            center=cloud_center,
+            fontsize=40,
+        )
+
+    # Neutrino starts at the centre of the MCMC cloud.
     sx, sy = cloud_center
-
-    # Soft source glow + compact central point.
-    for radius, alpha, lw in [
-        (0.040, 0.25, 1.6),
-        (0.027, 0.45, 1.3),
-        (0.019, 0.70, 0.8),
-    ]:
-        ax.add_patch(
-            Circle(
-                (sx, sy),
-                radius,
-                facecolor="none",
-                edgecolor=GLOW,
-                lw=lw,
-                alpha=alpha,
-                zorder=4,
-            )
-        )
-
-    ax.add_patch(
-        Circle(
-            (sx, sy),
-            0.0085,
-            facecolor=NAVY,
-            edgecolor=WHITE,
-            lw=2.2,
-            zorder=9,
-        )
-    )
 
     draw_neutrino_oscillations(
         ax,
@@ -227,11 +244,30 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("-o", "--output", default="mach3_banner.png")
     parser.add_argument("--width", type=int, default=1800)
-    parser.add_argument("--height", type=int, default=520)
+    parser.add_argument("--height", type=int, default=340)
     parser.add_argument("--seed", type=int, default=17)
+    parser.add_argument(
+        "--mach3",
+        dest="show_mach3",
+        action="store_true",
+        default=True,
+        help="show MaCh3 text over the MCMC cloud (default)",
+    )
+    parser.add_argument(
+        "--no-mach3",
+        dest="show_mach3",
+        action="store_false",
+        help="do not show MaCh3 text",
+    )
     args = parser.parse_args()
 
-    path = make_banner(args.width, args.height, args.seed, args.output)
+    path = make_banner(
+        args.width,
+        args.height,
+        args.seed,
+        args.output,
+        show_mach3=args.show_mach3,
+    )
     print(f"Wrote {path.resolve()}")
 
 
